@@ -24,7 +24,7 @@ public class ShowQuestion extends HttpServlet {
 	@Override
 	public void init() {
 		
-		dao = new Dao("jdbc:mysql://localhost:3306/election_machine", "root", "Hh4497");
+		dao = new Dao("jdbc:mysql://localhost:3306/electionmachine", "root", "Hh4497");
 
 	}
        

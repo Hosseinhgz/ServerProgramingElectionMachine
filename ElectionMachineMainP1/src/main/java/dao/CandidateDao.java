@@ -36,7 +36,8 @@ public class CandidateDao {
 	                throw new SQLException(e);
 	            }
 	            conn = DriverManager.getConnection(url, user, pass);
-	            System.out.println("conn is created!!");
+	            //for test
+	            //System.out.println("conn is created!!");
 	        }
 	        return true;
 		}

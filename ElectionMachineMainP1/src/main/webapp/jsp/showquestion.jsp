@@ -16,33 +16,43 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-  <head>
+ <head>
     <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">   
     <link href="../CSS/style.css" rel="stylesheet">
 
-
     <title>Election Machine questions</title>
-  </head>
-
-  <body>
-
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href='/hi'>The new servlet</a></td>
-      </tr>
-    </table>
-
+</head>
+<body>
+ <header>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-light navbar-fixed-top">
+       <div class="container-fluid">
+         <a class="navbar-brand" href="../index.html">Election Machine</a>
+         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+             <li class="nav-item">
+               <a class="nav-link" aria-current="page" href="../jsp/adminlogin.jsp">Login</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="#project-title">Statistics</a>
+             </li>
+           </ul>
+         </div>
+       </div>
+     </nav>
+</header>
+<main>
+  <div class="form-container">
     <!-- question part is start here-->
-       <div>
-        <h1 id="title">Election Machine</h1>
-        <p id="description">Answer these 20 questions to suggest the best candidates for you:</p>
+    <div>
+      <h1 id="title">Election Machine</h1>
+      <p id="description">Answer these 20 questions to suggest the best candidates for you:</p>
     </div>
-    <div class="form-container">
-       <form id="survey-form" method="post" class="form-answer" action="./saveanswers">
-       	<div class="question-text">
+<hr>
+<form data-ajax="false" method="post"  id="radioanswer">
 	       	<% 
 	       	// create index for questions for test
 			//CounterIndex j = new CounterIndex();
@@ -63,31 +73,47 @@
 
 			%>
 			
-			
-		</div>
-		<hr>
-       	<div class="form-elements">					
-		   <div class="radio-buttons">
-                 <input type="radio" Class="recommend-radio" name="recommend-radio" value="1">
-                 <label id="definitely">Definitely Agree</label><br>
-                 <input type="radio" Class="recommend-radio" name="recommend-radio" value="2">
-                 <label id="maybe">Agree</label><br>
-                 <input type="radio" Class="recommend-radio" name="recommend-radio" value="3" checked>
-                 <label id="not-sure">Middle opinion</label><br>
-                 <input type="radio" Class="recommend-radio" name="recommend-radio" value="4">
-                 <label id="not-sure">Disagree</label><br>
-                 <input type="radio" Class="recommend-radio" name="recommend-radio" value="5">
-                 <label id="not-sure">Completely disagree</label><br>
-             </div>
-             <div class="buttons">
-            	<button id="previous" class="submit-button" type="submit"  name="action" value="previous">Previous</button>
-         		<button id="next" class="submit-button" type="submit"  name="action" value="next">Next</button>
-         		<button id="finish" class="submit-button" type="submit"  name="action" value="finish">Finish</button>
-         		
-             </div>
-        </div>
-      </form>
-    </div>
+		<input type="hidden"  name="id2" value="${requestScope.question.id}">
+		<input type="hidden"  name="question" value="${requestScope.question.question}">
+		<input type="hidden"  name="" value="${requestScope.question.answer}" >
 
-  </body>
+		
+	   <div class="radio-buttons">
+	          <input type="radio" Class="recommend-radio" name="answer" value="0" style="visibility: hidden;" checked ><br>
+              <input type="radio" Class="recommend-radio" name="answer" value="1" >
+              <label id="definitely">Definitely Agree</label><br>
+              <input type="radio" Class="recommend-radio" name="answer" value="2" >
+              <label id="maybe">Agree</label><br>
+              <input type="radio" Class="recommend-radio" name="answer" value="3">
+              <label id="not-sure">Middle opinion</label><br>
+              <input type="radio" Class="recommend-radio" name="answer" value="4">
+              <label id="not-sure">Disagree</label><br>
+              <input type="radio" Class="recommend-radio" name="answer" value="5">
+              <label id="not-sure">Completely disagree</label><br>
+              <hr>
+              <p><b>your current saved choice is : ${requestScope.question.answer}</b></p>
+              <hr>
+          </div>
+
+     <div class="buttons" data-role="fieldcontain">
+     	<input formaction='../backonequestion?id=${requestScope.question.id-1}'  id="previous" type="submit" class="question-button" name="action" value="Previous"> 
+		<input formaction='../readonequestion?id=${requestScope.question.id+1}' id="next" type="submit" class="question-button"  name="action" value="Next">
+		<input formaction='../showresult'  type="submit" class="question-button"  name="ok" value="Finish">
+			
+     </div>	
+</form>
+    </div>
+</main>
+</body>
+<script type="text/javascript">
+	let index =  ${f.getId()} ;
+	if (index==1){
+		document.getElementById("previous").disabled = true;
+	}
+	let index2 =  ${requestScope.question.id} ;
+	if (index2==19){
+		document.getElementById("next").disabled = true;
+	}
+
+</script>
 </html>

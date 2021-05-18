@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.Question;
-import data.CustomerAnswers;
 
 
 public class Dao {

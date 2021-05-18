@@ -158,5 +158,19 @@ public class Dao {
 		}
 	}
 	
+	// reset QUESTION table with 0 answers before customer start Answering
+	public ArrayList<Question> resetAnswer() {
+		try {
+			String sql="UPDATE QUESTION SET ANSWER=0";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			return readAllQuestion();
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	
 	
 }

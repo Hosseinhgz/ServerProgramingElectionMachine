@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 import data.CounterIndex;
@@ -17,8 +18,8 @@ import data.Question;
 /**
  * Servlet implementation class ShowFish
  */
-@WebServlet("/result")
-public class Result extends HttpServlet {
+@WebServlet("/backquestion")
+public class BackQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao=null;
 	
@@ -32,7 +33,7 @@ public class Result extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Result() {
+    public BackQuestion() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,23 +43,18 @@ public class Result extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Question> list=null;
-		
-		// reset the index to 0 again
-		CounterIndex.resetIndex();
-		
-		// save the answer to last question to database and read all question and answers
 		Question q = new Question(request.getParameter("id"),request.getParameter("question"),request.getParameter("answer"));
 		if (dao.getConnection()) {
 			list = dao.updateAnswer(q);
+			CounterIndex.lowerIndex();
 		
 		}
 		else {
 			System.out.println("No connection to database for read questions");
 		}
-
 		request.setAttribute("questionlist", list);
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/jsp/result.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showquestion.jsp");
 		rd.forward(request, response);
 	}
 }

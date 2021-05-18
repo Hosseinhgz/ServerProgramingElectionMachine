@@ -32,4 +32,8 @@ public class CounterIndex {
 	public static synchronized int lowerIndex() {
 		return index--;
 	}
+	public static synchronized int resetIndex() {
+		index = 0;
+		return index;
+	}
 }

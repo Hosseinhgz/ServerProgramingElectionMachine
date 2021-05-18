@@ -94,9 +94,9 @@
           </div>
 
      <div class="buttons" data-role="fieldcontain">
-     	<input formaction='../backonequestion?id=${requestScope.question.id-1}'  id="previous" type="submit" class="question-button" name="action" value="Previous"> 
+     	<input formaction='../backquestion'  id="previous" type="submit" class="question-button" name="action" value="Previous"> 
 		<input formaction='../nextquestion' id="next" type="submit" class="question-button"  name="action" value="Next">
-		<input formaction='../showresult'  type="submit" class="question-button"  name="ok" value="Finish">
+		<input formaction='../result'  type="submit" class="question-button"  name="ok" value="Finish">
 			
      </div>	
 </form>
@@ -104,11 +104,12 @@
 </main>
 </body>
 <script type="text/javascript">
-	let i =  parseInt(<%=CounterIndex.currentIndex()%>) ;
+	let i =  parseInt(<%=CounterIndex.currentIndex()%>);
+	let x = parseInt(<%=questionList.size()%>);
 	if (i==0){
 		document.getElementById("previous").disabled = true;
 	}
-	if (i==parseInt(<%=questionList.size()%>)){
+	if (i ==x-1){
 		document.getElementById("next").disabled = true;
 	}
 

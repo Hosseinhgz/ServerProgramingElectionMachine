@@ -57,8 +57,15 @@ public class CandidateDao {
 			ResultSet RS=stmt.executeQuery(sql);
 			while (RS.next()){
 				Candidate c=new Candidate();
-				//c.setId(RS.getInt("ID"));
-				//c.setQuestion(RS.getString("QUESTION"));
+				c.setId(RS.getInt("ID"));
+				c.setFirstname(RS.getString("FIRSTNAME"));
+				c.setSurname(RS.getString("SURNAME"));
+				c.setIka(RS.getInt("IKA"));
+				c.setParty(RS.getString("PARTY"));
+				c.setLocation(RS.getString("LOCATION"));
+				c.setWhatAthesWantEdes(RS.getString("WHAT_ATHES_WANT_EDES"));
+				c.setWhyCommission(RS.getString("WHY_COMMISSION"));
+				c.setProfessional(RS.getString("PROFESSIONAL"));
 				list.add(c);
 			}
 			return list;
@@ -162,7 +169,34 @@ public class CandidateDao {
 			return null;
 		}
 	}
-
+	// readCandidateAnswers() method which read all answers of specific candidate
+	public ArrayList<CandidateAnswers> readCandidateAnswers(int candidateId) {
+		ArrayList<CandidateAnswers> cAnswersList=new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM CANDIDATEANSWERS WHERE CANDIDATEID="+candidateId;
+			getConnection();
+			Statement stmt=conn.createStatement();
+			ResultSet RS=stmt.executeQuery(sql);
+			while (RS.next()){
+				Candidate c=new Candidate();
+				c.setId(RS.getInt("ID"));
+				c.setFirstname(RS.getString("FIRSTNAME"));
+				c.setSurname(RS.getString("SURNAME"));
+				c.setIka(RS.getInt("IKA"));
+				c.setParty(RS.getString("PARTY"));
+				c.setLocation(RS.getString("LOCATION"));
+				c.setWhatAthesWantEdes(RS.getString("WHAT_ATHES_WANT_EDES"));
+				c.setWhyCommission(RS.getString("WHY_COMMISSION"));
+				c.setProfessional(RS.getString("PROFESSIONAL"));
+				
+				cAnswersList.add(c);
+			}
+			return cAnswersList;
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
 	
 	
 }

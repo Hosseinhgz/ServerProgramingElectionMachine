@@ -42,7 +42,7 @@ public class ShowQuestion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Question> list=null;
 		if (dao.getConnection()) {
-			list = dao.readAllQuestion();
+			list = dao.resetAnswer();
 		}
 		else {
 			System.out.println("No connection to database for read questions");

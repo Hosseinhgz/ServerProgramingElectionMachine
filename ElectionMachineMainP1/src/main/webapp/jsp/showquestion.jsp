@@ -48,35 +48,33 @@
   <div class="form-container">
     <!-- question part is start here-->
     <div>
-      <h1 id="title">Election Machine</h1>
-      <p id="description">Answer these 20 questions to suggest the best candidates for you:</p>
+      <p id="description">Answer these questions to application can suggest the best candidates for you:</p>
     </div>
 <hr>
-<form data-ajax="false" method="post"  id="radioanswer">
-	       	<% 
-	       	// create index for questions for test
-			//CounterIndex j = new CounterIndex();
-			// out.println("your index is: "+ j.getIndex());
-	       	
-			ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");
-			
-			// IMP The value is not coming to this page
-			//ArrayList<CounterIndex> index=(ArrayList<CounterIndex>)request.getAttribute("index");	
-			//int i =index.getIndex();
-			int i = 0;
-			if(i<19){
-				Question f = questionList.get(i);
-				out.println(f.getId()+" . "+f.getQuestion());
-			}else{			
-				out.println("There is no such question! \n");
-	        }		
+	<%! //CounterIndex index = new  CounterIndex(0);%>
+	<%  ArrayList<Question> questionList=(ArrayList<Question>)request.getAttribute("questionlist");%>
+	
+	<h1><%=CounterIndex.currentIndex()+1+" / "+ questionList.size()%></h1>
+	<hr>
+		
+<form data-ajax="false" method="get"  id="radioanswer">
+	
+    <% 
+      	// create index for questions for test
+	//CounterIndex j = new CounterIndex();
+	// out.println("your index is: "+ j.getIndex());
+      	
+	Question f = questionList.get(CounterIndex.currentIndex());
+	if(CounterIndex.currentIndex()<questionList.size()){
+		out.println(f.getId()+" . "+f.getQuestion());
+	}else{			
+		out.println("There is no such question! \n");
+       }		
 
-			%>
+	%>
 			
-		<input type="hidden"  name="id2" value="${requestScope.question.id}">
-		<input type="hidden"  name="question" value="${requestScope.question.question}">
-		<input type="hidden"  name="" value="${requestScope.question.answer}" >
-
+		<input type="hidden"  name="id" value="<%=f.getId()%>">
+		<input type="hidden"  name="question" value="<%=f.getQuestion()%>">
 		
 	   <div class="radio-buttons">
 	          <input type="radio" Class="recommend-radio" name="answer" value="0" style="visibility: hidden;" checked ><br>
@@ -91,27 +89,26 @@
               <input type="radio" Class="recommend-radio" name="answer" value="5">
               <label id="not-sure">Completely disagree</label><br>
               <hr>
-              <p><b>your current saved choice is : ${requestScope.question.answer}</b></p>
+              <%="<p><b>your current saved choice is : "+ f.getAnswer()+"</b></p>"%>
               <hr>
           </div>
 
      <div class="buttons" data-role="fieldcontain">
      	<input formaction='../backonequestion?id=${requestScope.question.id-1}'  id="previous" type="submit" class="question-button" name="action" value="Previous"> 
-		<input formaction='../readonequestion?id=${requestScope.question.id+1}' id="next" type="submit" class="question-button"  name="action" value="Next">
+		<input formaction='../nextquestion' id="next" type="submit" class="question-button"  name="action" value="Next">
 		<input formaction='../showresult'  type="submit" class="question-button"  name="ok" value="Finish">
 			
      </div>	
 </form>
-    </div>
+</div>
 </main>
 </body>
 <script type="text/javascript">
-	let index =  ${f.getId()} ;
-	if (index==1){
+	let i =  parseInt(<%=CounterIndex.currentIndex()%>) ;
+	if (i==0){
 		document.getElementById("previous").disabled = true;
 	}
-	let index2 =  ${requestScope.question.id} ;
-	if (index2==19){
+	if (i==parseInt(<%=questionList.size()%>)){
 		document.getElementById("next").disabled = true;
 	}
 

@@ -16,8 +16,8 @@ import data.Question;
 /**
  * Servlet implementation class ShowFish
  */
-@WebServlet("/resault")
-public class Resault extends HttpServlet {
+@WebServlet("/result")
+public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao=null;
 	
@@ -31,7 +31,7 @@ public class Resault extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Resault() {
+    public Result() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,7 +49,7 @@ public class Resault extends HttpServlet {
 		}
 		request.setAttribute("questionlist", list);
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/jsp/resault.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/jsp/result.jsp");
 		rd.forward(request, response);
 	}
 }

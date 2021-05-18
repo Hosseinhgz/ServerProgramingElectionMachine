@@ -78,9 +78,17 @@ public class CandidateDao {
 			pstmt.setInt(1, c.getId());
 			ResultSet RS=pstmt.executeQuery(sql);
 
-			//c.setId(RS.getInt("ID"));
-			//c.setQuestion(RS.getString("QUESTION"));
-			//singleCandidate.add(c);
+			c.setId(RS.getInt("ID"));
+			c.setFirstname(RS.getString("FIRSTNAME"));
+			c.setSurname(RS.getString("SURNAME"));
+			c.setIka(RS.getInt("IKA"));
+			c.setParty(RS.getString("PARTY"));
+			c.setLocation(RS.getString("LOCATION"));
+			c.setWhatAthesWantEdes(RS.getString("WHAT_ATHES_WANT_EDES"));
+			c.setWhyCommission(RS.getString("WHY_COMMISSION"));
+			c.setProfessional(RS.getString("PROFESSIONAL"));
+
+			singleCandidate.add(c);
 			return singleCandidate;
 
 		}
@@ -93,11 +101,19 @@ public class CandidateDao {
 	// update candidate text with updateCandidate(Candidate c) method
 	public ArrayList<Candidate> updateCandidate(Candidate c) {
 		try {
-			String sql="UPDATE CANDIDATE SET ????= ? WHERE ID=?";
+			String sql="UPDATE CANDIDATE SET SURNAME= ?, FIRSTNAME=?, PARTY=?, LOCATION=?,"
+					+ " IKA=?, WHY_COMMISSION=?, WHAT_ATHES_WANT_EDES=?, PROFESSIONAL=?  WHERE ID=?";
 			getConnection();
 			PreparedStatement pstmt=conn.prepareStatement(sql);
-			//pstmt.setString(1, c.getCandidate());
-			//pstmt.setInt(2, c.getId());
+			pstmt.setString(1, c.getSurname());
+			pstmt.setString(2, c.getFirstname());
+			pstmt.setString(3, c.getParty());
+			pstmt.setString(4, c.getLocation());
+			pstmt.setInt(5, c.getIka());
+			pstmt.setString(6, c.getWhyCommission());
+			pstmt.setString(7, c.getWhatAthesWantEdes());
+			pstmt.setString(8, c.getProfessional());
+			pstmt.setInt(9, c.getId());
 			pstmt.executeUpdate();
 			return readAllCandidate();
 		}
@@ -111,8 +127,8 @@ public class CandidateDao {
 		try {
 			String sql="delete from CANDIDATE where ID=?";
 			PreparedStatement pstmt=conn.prepareStatement(sql);
-			//pstmt.setString(1, id);
-			//pstmt.executeUpdate();
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
 			return readAllCandidate();
 		}
 		catch(SQLException e) {
@@ -129,9 +145,16 @@ public class CandidateDao {
 			pstmt.setString(1, id);
 			ResultSet RS=pstmt.executeQuery();
 			while (RS.next()){
-				//c=new Candidate();
-				//c.setId(RS.getInt("ID"));
-				//c.setCandidate(RS.getString("QUESTION"));
+				c=new Candidate();
+				c.setId(RS.getInt("ID"));
+				c.setFirstname(RS.getString("FIRSTNAME"));
+				c.setSurname(RS.getString("SURNAME"));
+				c.setIka(RS.getInt("IKA"));
+				c.setParty(RS.getString("PARTY"));
+				c.setLocation(RS.getString("LOCATION"));
+				c.setWhatAthesWantEdes(RS.getString("WHAT_ATHES_WANT_EDES"));
+				c.setWhyCommission(RS.getString("WHY_COMMISSION"));
+				c.setProfessional(RS.getString("PROFESSIONAL"));
 			}
 			return c;
 		}

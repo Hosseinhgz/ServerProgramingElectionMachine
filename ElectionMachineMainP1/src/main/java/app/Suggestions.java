@@ -22,12 +22,12 @@ import data.Question;
 @WebServlet("/suggestions")
 public class Suggestions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CandidateDao dao=null;
+	private CandidateDao cdao=null;
 	
 	@Override
 	public void init() {
 		
-		dao = new CandidateDao("jdbc:mysql://localhost:3306/electionmachine", "root", "Hh4497");
+		cdao = new CandidateDao("jdbc:mysql://localhost:3306/electionmachine", "root", "Hh4497");
 
 	}
        
@@ -44,31 +44,33 @@ public class Suggestions extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Question> qalist=null;
-		if (dao.getConnection()) {
-			qalist = dao.readAllQuestion();
-		}
-		else {
-			System.out.println("No connection to database for read questions");
-		}
-		
+		ArrayList<Question> qalist=null;	
 		ArrayList<CandidateAnswers> caAnslist=null;
 		ArrayList<Result> resultlist=null;
+		
+		for(int i=1;i<=qalist.size();i++)		
+			if (cdao.getConnection()) {
+				
+				caAnslist = cdao.readCandidateAnswers(i);
+				qalist = cdao.readAllQuestion();
+				System.out.println("been here 1");
 
-		
-		for(int i=1;i<=qalist.size();i++)
-		
-			if (dao.getConnection()) {
-				caAnslist = dao.readCandidateAnswers(i);
-			
+			// calculations are here	
+				
+				
+				
+				
+				
+				
+				
+				
 			}
 			else {
-				System.out.println("No connection to database for read CandidateAnswers");
+				System.out.println("No connection to database for read CandidateAnswers or questions");
 			}
 
-		request.setAttribute("questionlist", list);
-		
-		RequestDispatcher rd=request.getRequestDispatcher("/jsp/result.jsp");
+		request.setAttribute("resultlist", caAnslist);		
+		RequestDispatcher rd=request.getRequestDispatcher("/jsp/suggestions.jsp");
 		rd.forward(request, response);
 	}
 }

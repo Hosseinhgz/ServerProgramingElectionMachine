@@ -42,6 +42,8 @@ public class NextQuestion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	    
 		ArrayList<Question> list=null;
 		Question q = new Question(request.getParameter("id"),request.getParameter("question"),request.getParameter("answer"));
 		if (dao.getConnection()) {

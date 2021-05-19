@@ -75,7 +75,7 @@
 <br>
 
 	<div class="info-img">
-		<a href="#"><button class="button" type="button">Go to Suggestions</button></a>
+		<a href="../suggestions"><button class="button" type="button">Go to Suggestions</button></a>
 	</div>
 </div>
 

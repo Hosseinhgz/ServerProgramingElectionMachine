@@ -49,26 +49,21 @@
 <table border="1">
 	<tbody>
 		<tr>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-			<td>5</td>
-			
+			<td>candidate id</td>
+			<td>customer id</td>
+			<td>result</td>	
 			
 		</tr>
 	<%
-		ArrayList<CandidateAnswers> List=(ArrayList<CandidateAnswers>)request.getAttribute("resultlist");
+		ArrayList<Result> List=(ArrayList<Result>)request.getAttribute("resultlist");
 		
 		for(int i = 0; i< List.size(); i++){
 			
-		CandidateAnswers ca = List.get(i);
+		Result r = List.get(i);
 		out.println("<tr>");
-		out.println("<td>"+ca.getId()+"</td>");
-		out.println("<td>"+ca.getCandidateid()+"</td>");
-		out.println("<td>"+ca.getQuestion()+"</td>");
-		out.println("<td>"+ca.getCandidateans()+"</td>");
-		out.println("<td>"+ca.getComment()+"</td>");
+		out.println("<td>"+r.getCandidateid()+"</td>");
+		out.println("<td>"+r.getCustomerid()+"</td>");
+		out.println("<td>"+r.getResult()+"</td>");
 		out.println("</tr>");
 		}
 
@@ -77,10 +72,6 @@
 </table>
 <br>
 
-	<div class="info-img">
-		<a href="#"><button class="button" type="button">Go to Suggestions</button></a>
-	</div>
-</div>
 
 </main>
 </body>

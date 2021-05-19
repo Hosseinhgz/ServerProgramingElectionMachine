@@ -12,6 +12,7 @@ import java.util.List;
 import data.Candidate;
 import data.CandidateAnswers;
 import data.Question;
+import data.Result;
 
 
 public class CandidateDao {
@@ -215,4 +216,68 @@ public class CandidateDao {
 		}
 	}
 	
+	
+	// insert result of comparison into database
+	public void insertResult(Result r) {
+		try {
+			String sql="INSERT INTO RESULT (CANDIDATEID, CUSTOMERID, RESULT) VALUES (?,?,?);";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getCandidateid());
+			pstmt.setInt(2, r.getCustomerid());
+			pstmt.setDouble(3, r.getResult());
+
+			pstmt.executeUpdate();
+			return;
+		}
+		catch(SQLException e) {
+			return;
+		}
+	}
+	
+	// readAllResult() method for bring all result
+	public ArrayList<Result> readAllResult() {
+		ArrayList<Result> list=new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM RESULT";
+			getConnection();
+			Statement stmt=conn.createStatement();
+			ResultSet RS=stmt.executeQuery(sql);
+			while (RS.next()){
+				Result r=new Result();
+				r.setCandidateid(RS.getInt("CANDIDATEID"));
+				r.setCustomerid(RS.getString("CUSTOMERID"));
+				r.setResult(RS.getString("RESULT"));
+
+				list.add(r);
+			}
+			return list;
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	// readSuggestions() method for bring 3 suggestions with best result
+	public ArrayList<Result> readSuggestions() {
+		ArrayList<Result> list=new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM RESULT ORDER BY RESULT DESC LIMIT 3";
+			getConnection();
+			Statement stmt=conn.createStatement();
+			ResultSet RS=stmt.executeQuery(sql);
+			while (RS.next()){
+				Result r=new Result();
+				r.setCandidateid(RS.getInt("CANDIDATEID"));
+				r.setCustomerid(RS.getString("CUSTOMERID"));
+				r.setResult(RS.getString("RESULT"));
+
+				list.add(r);
+			}
+			return list;
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
 }

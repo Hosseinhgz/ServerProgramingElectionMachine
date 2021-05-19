@@ -46,30 +46,44 @@ public class Suggestions extends HttpServlet {
 		
 		ArrayList<Question> qalist=null;	
 		ArrayList<CandidateAnswers> caAnslist=null;
-		ArrayList<Result> resultlist=null;
-		
-		for(int i=1;i<=qalist.size();i++)		
+		ArrayList<data.Result> resultlist= new ArrayList<>();
+		ArrayList<data.Result> suggestlist= new ArrayList<>();
+
+				
+		for(int j=1; j<=6;j++) {	
 			if (cdao.getConnection()) {
 				
-				caAnslist = cdao.readCandidateAnswers(i);
-				qalist = cdao.readAllQuestion();
-				System.out.println("been here 1");
+				
+				// calculations are here *********** IMPORTANT *************
 
-			// calculations are here	
+				caAnslist = cdao.readCandidateAnswers(j);
+				qalist = cdao.readAllQuestion();
+				double res = 0;
+				double percentResult = 0;
+
+				for(int i=0;i<qalist.size();i++)	{
 				
+					int x = caAnslist.get(i).getCandidateans();
+					int y = qalist.get(i).getAnswer();
+					
+					if (y!=0) {
+						res = res + (1-(java.lang.Math.abs(x-y)*0.25));
+					}
 				
-				
-				
-				
-				
-				
-				
+				}
+				percentResult = res*100/qalist.size();
+				data.Result r = new data.Result(j,1,percentResult);
+				cdao.insertResult(r);
+				resultlist.add(r);
 			}
 			else {
 				System.out.println("No connection to database for read CandidateAnswers or questions");
 			}
-
-		request.setAttribute("resultlist", caAnslist);		
+		}
+		
+		suggestlist = cdao.readSuggestions();
+		//System.out.println("been here"+qalist.size());
+		request.setAttribute("resultlist", suggestlist);		
 		RequestDispatcher rd=request.getRequestDispatcher("/jsp/suggestions.jsp");
 		rd.forward(request, response);
 	}

@@ -84,32 +84,38 @@
 	</tbody>
 </table>
 <br>
+</div>
+<div class='row'>
+<% 
+for(int i = 0; i< List.size(); i++){
+	Candidate c = List.get(i);
 
-<div class="row">
-<div class="col-sm-4">
-    <div id="project1" class="project_cards">
-       <div class="card_photo">
-           <div class="demobox" id="demobox1">
-               <a href="https://codepen.io/hosseinhgz/pen/qBaeoOa"><img src="./images/Candidate${candidate.id}.jpg" alt="Candidate - tribute page" style="width:400px;height:260px;"></a>
-           </div>
-       </div>
-       <div class="card-header">
+out.println("<div class='col-sm-4'>");
+	out.println("<div id='project1' class='project_cards'>");
+		out.println("<div class='card_photo'>");
+		out.println("<div class='demobox' id='demobox1'>");
+		out.println("<a href='https://codepen.io/hosseinhgz/pen/qBaeoOa'><img src='./images/Candidate"+c.getId()+".jpg' alt='Candidate - tribute page' style='width:400px;height:260px;'></a>");
+		out.println("</div>");
+				out.println("</div>");
+				out.println("<div class='card-header'>");
 
-           <h4>${candidate.firstname} - ${candidate.surname}</h4>
-       </div>
-       <div class="card-describe">
-       	<p class="card-text"><b>Candidate id:</b> ${candidate.id}</p>	    
-	   	<p class="card-text"><b>Candidate Party:</b> ${candidate.party}</p>	    
-	    <p class="card-text"><b>Candidate Location:</b> ${candidate.location}</p>    
-	    <p class="card-text"><b>Candidate profession:</b> ${candidate.professional}</p>
-	    <a href='../readtomorecandidate?id=${candidate.id}' class="btn btn-primary">More Information</a>
+				out.println("<h4>"+c.getFirstname()+""+c.getSurname()+"</h4>");
+		out.println("</div>");
+		out.println("<div class='card-describe'>");
+		out.println("<p class='card-text'><b>Candidate id:</b>"+c.getId()+"</p>");	    
+		out.println("<p class='card-text'><b>Candidate Party:</b>"+c.getParty()+"</p>");	    
+		out.println("<p class='card-text'><b>Candidate Location:</b>"+c.getLocation()+"</p>");    
+		out.println("<p class='card-text'><b>Candidate profession:</b>"+c.getProfessional()+"</p>");
+		out.println("<a href='#' class='btn btn-primary'>More Information</a>");
 	    
-       </div>
-   </div>
-</div>	
+		out.println("</div>");
+	out.println("</div>");
+out.println("</div>");	
+
+}
+%>
 </div>
 
-</div>
 
 </main>
 </body>

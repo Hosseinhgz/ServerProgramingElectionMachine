@@ -23,7 +23,7 @@
     <title>Election Machine questions</title>
 </head>
 <body>
- <header>
+<header>
    <nav class="navbar navbar-expand-lg navbar-dark bg-light navbar-fixed-top">
        <div class="container-fluid">
          <a class="navbar-brand" href="../index.html">Election Machine</a>

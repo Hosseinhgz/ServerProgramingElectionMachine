@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.Question;
-import data.CustomerAnswers;
 
 
 public class Dao {
@@ -50,14 +49,15 @@ public class Dao {
 	public ArrayList<Question> readAllQuestion() {
 		ArrayList<Question> list=new ArrayList<>();
 		try {
-			String sql = "SELECT * FROM questions";
+			String sql = "SELECT * FROM QUESTION";
 			getConnection();
 			Statement stmt=conn.createStatement();
 			ResultSet RS=stmt.executeQuery(sql);
 			while (RS.next()){
 				Question q=new Question();
-				q.setId(RS.getInt("QUESTION_ID"));
+				q.setId(RS.getInt("ID"));
 				q.setQuestion(RS.getString("QUESTION"));
+				q.setAnswer(RS.getInt("ANSWER"));
 				list.add(q);
 			}
 			return list;
@@ -71,14 +71,16 @@ public class Dao {
 	public ArrayList<Question> readQuestion(Question q) {
 		ArrayList<Question> singleQuestion=new ArrayList<>();
 		try {
-			String sql="SELECT * FROM questions WHERE QUESTION_ID=?";
+			String sql="SELECT * FROM QUESTION WHERE ID=?";
 			getConnection();
 			PreparedStatement pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, q.getId());
 			ResultSet RS=pstmt.executeQuery(sql);
 
-			q.setId(RS.getInt("QUESTION_ID"));
+			q.setId(RS.getInt("ID"));
 			q.setQuestion(RS.getString("QUESTION"));
+			q.setAnswer(RS.getString("ANSWER"));
+
 			singleQuestion.add(q);
 			return singleQuestion;
 
@@ -92,10 +94,25 @@ public class Dao {
 	// update question text with updateQuestion(Question q) method
 	public ArrayList<Question> updateQuestion(Question q) {
 		try {
-			String sql="UPDATE questions SET QUESTION= ? WHERE QUESTION_ID=?";
+			String sql="UPDATE QUESTION SET QUESTION= ?, ANSWER=0 WHERE ID=?";
 			getConnection();
 			PreparedStatement pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, q.getQuestion());
+			pstmt.setInt(2, q.getId());
+			pstmt.executeUpdate();
+			return readAllQuestion();
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	// update QUESTION table with customers answers customerAnswer(CustomerAnswers a) method
+	public ArrayList<Question> updateAnswer(Question q) {
+		try {
+			String sql="UPDATE QUESTION SET ANSWER=? WHERE ID=?";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, q.getAnswer());
 			pstmt.setInt(2, q.getId());
 			pstmt.executeUpdate();
 			return readAllQuestion();
@@ -108,7 +125,7 @@ public class Dao {
 	// deleteQuestion() method
 	public ArrayList<Question> deleteQuestion(String id) {
 		try {
-			String sql="delete from questions where QUESTION_ID=?";
+			String sql="delete from QUESTION where ID=?";
 			PreparedStatement pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
@@ -121,61 +138,39 @@ public class Dao {
 	
 	// readQuestion method
 	public Question readQuestion(String id) {
-		Question f=null;
+		Question q=null;
 		try {
-			String sql="select * from questions where QUESTION_ID=?";
+			String sql="select * from QUESTION where ID=?";
 			PreparedStatement pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			ResultSet RS=pstmt.executeQuery();
 			while (RS.next()){
-				f=new Question();
-				f.setId(RS.getInt("QUESTION_ID"));
-				f.setQuestion(RS.getString("QUESTION"));
+				q=new Question();
+				q.setId(RS.getInt("ID"));
+				q.setQuestion(RS.getString("QUESTION"));
+				q.setAnswer(RS.getInt("ANSWER"));
+
 			}
-			return f;
-		}
-		catch(SQLException e) {
-			return null;
-		}
-	}
-	// update customer_answers table with customers answers customerAnswer(CustomerAnswers a) method
-	public ArrayList<CustomerAnswers> customerAnswer(CustomerAnswers a) {
-
-		try {
-
-
-			String sql="UPDATE CUSTOMER_ANSWERS SET ANSWER=? WHERE QUESTION=?";
-			getConnection();
-			PreparedStatement pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(2, a.getNumber());
-			pstmt.setInt(1, a.getAnswer());
-			pstmt.executeUpdate();
-			return readAllAnswers();
+			return q;
 		}
 		catch(SQLException e) {
 			return null;
 		}
 	}
 	
-	// readAllAnswers() method
-	public ArrayList<CustomerAnswers> readAllAnswers() {
-		ArrayList<CustomerAnswers> list=new ArrayList<>();
+	// reset QUESTION table with 0 answers before customer start Answering
+	public ArrayList<Question> resetAnswer() {
 		try {
-			String sql = "SELECT * FROM CUSTOMER_ANSWERS";
+			String sql="UPDATE QUESTION SET ANSWER=0";
 			getConnection();
-			Statement stmt=conn.createStatement();
-			ResultSet RS=stmt.executeQuery(sql);
-			while (RS.next()){
-				CustomerAnswers q=new CustomerAnswers();
-				q.setNumber(RS.getInt("NUMBER"));
-				q.setAnswer(RS.getInt("ANSWER"));
-				list.add(q);
-			}
-			return list;
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			return readAllQuestion();
 		}
 		catch(SQLException e) {
 			return null;
 		}
 	}
+	
 	
 }

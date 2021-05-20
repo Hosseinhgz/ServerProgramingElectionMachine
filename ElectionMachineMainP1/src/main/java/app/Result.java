@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.Dao;
+import data.CounterIndex;
 import data.Question;
 
 /**
  * Servlet implementation class ShowFish
  */
-@WebServlet("/showquestion")
-public class ShowQuestion extends HttpServlet {
+@WebServlet("/result")
+public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao=null;
 	
@@ -31,7 +32,7 @@ public class ShowQuestion extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowQuestion() {
+    public Result() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,17 +41,24 @@ public class ShowQuestion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		ArrayList<Question> list=null;
+		
+		// reset the index to 0 again
+		CounterIndex.resetIndex();
+		
+		// save the answer to last question to database and read all question and answers
+		Question q = new Question(request.getParameter("id"),request.getParameter("question"),request.getParameter("answer"));
 		if (dao.getConnection()) {
-			list = dao.resetAnswer();
+			list = dao.updateAnswer(q);
+		
 		}
 		else {
 			System.out.println("No connection to database for read questions");
 		}
+
 		request.setAttribute("questionlist", list);
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showquestion.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/jsp/result.jsp");
 		rd.forward(request, response);
 	}
 }

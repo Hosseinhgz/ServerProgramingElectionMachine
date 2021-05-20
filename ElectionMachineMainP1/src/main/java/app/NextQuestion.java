@@ -9,27 +9,31 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Dao;
-import data.Fish;
+import data.CounterIndex;
+import data.Question;
 
 /**
  * Servlet implementation class ShowFish
  */
-@WebServlet("/showfish")
-public class ShowFish extends HttpServlet {
+@WebServlet("/nextquestion")
+public class NextQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao=null;
 	
 	@Override
 	public void init() {
-		dao=new Dao("//localhost:3306/fishdatabase", "root", "Hh4497");
+		
+		dao = new Dao("jdbc:mysql://localhost:3306/electionmachine", "root", "Hh4497");
+
 	}
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowFish() {
+    public NextQuestion() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,16 +42,21 @@ public class ShowFish extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Fish> list=null;
+
+	    
+		ArrayList<Question> list=null;
+		Question q = new Question(request.getParameter("id"),request.getParameter("question"),request.getParameter("answer"));
 		if (dao.getConnection()) {
-			list=dao.readAllFish();
+			list = dao.updateAnswer(q);
+			CounterIndex.higherIndex();
+		
 		}
 		else {
-			System.out.println("No connection to database");
+			System.out.println("No connection to database for read questions");
 		}
-		request.setAttribute("fishlist", list);
+		request.setAttribute("questionlist", list);
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showfish.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showquestion.jsp");
 		rd.forward(request, response);
 	}
 }

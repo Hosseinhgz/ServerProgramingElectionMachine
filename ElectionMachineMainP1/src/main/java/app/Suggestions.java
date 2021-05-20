@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.CandidateDao;
 import dao.Dao;
+import data.Candidate;
 import data.CandidateAnswers;
 import data.CounterIndex;
 import data.Question;
@@ -48,6 +49,7 @@ public class Suggestions extends HttpServlet {
 		ArrayList<CandidateAnswers> caAnslist=null;
 		ArrayList<data.Result> resultlist= new ArrayList<>();
 		ArrayList<data.Result> suggestlist= new ArrayList<>();
+		ArrayList<data.Candidate> suggcanlist= new ArrayList<>();
 
 				
 		for(int j=1; j<=6;j++) {	
@@ -82,8 +84,14 @@ public class Suggestions extends HttpServlet {
 		}
 		
 		suggestlist = cdao.readSuggestions();
-		//System.out.println("been here"+qalist.size());
-		request.setAttribute("resultlist", suggestlist);		
+		
+		suggcanlist = cdao.readSuggCandidate(suggestlist.get(0).getCandidateid(),suggestlist.get(1).getCandidateid(), suggestlist.get(2).getCandidateid());
+//		System.out.println(suggcanlist.get(0));
+//		System.out.println(suggcanlist.get(1));
+
+		
+		System.out.println("been here and suggcanlist size: "+ suggcanlist.size());
+		request.setAttribute("resultlist", suggcanlist);		
 		RequestDispatcher rd=request.getRequestDispatcher("/jsp/suggestions.jsp");
 		rd.forward(request, response);
 	}

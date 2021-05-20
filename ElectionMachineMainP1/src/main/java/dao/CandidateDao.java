@@ -280,4 +280,37 @@ public class CandidateDao {
 			return null;
 		}
 	}
+	// readSuggestions() method for bring 3 suggestions with best result
+	public ArrayList<Candidate> readSuggCandidate(int id1,int id2,int id3) {
+		Candidate c=new Candidate();
+		ArrayList<Candidate> list=new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM CANDIDATE WHERE ID in(?,?,?)";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, id1);
+			pstmt.setInt(2, id2);
+			pstmt.setInt(3, id3);
+			ResultSet RS=pstmt.executeQuery();
+
+			while (RS.next()){
+				c=new Candidate();
+				c.setId(RS.getInt("ID"));
+				c.setFirstname(RS.getString("FIRSTNAME"));
+				c.setSurname(RS.getString("SURNAME"));
+				c.setIka(RS.getInt("IKA"));
+				c.setParty(RS.getString("PARTY"));
+				c.setLocation(RS.getString("LOCATION"));
+				c.setWhatAthesWantEdes(RS.getString("WHAT_ATHES_WANT_EDES"));
+				c.setWhyCommission(RS.getString("WHY_COMMISSION"));
+				c.setProfessional(RS.getString("PROFESSIONAL"));
+
+				list.add(c);
+			}
+			return list;
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
 }

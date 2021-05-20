@@ -8,7 +8,8 @@
  <%@ page import="dao.CandidateDao" %> 
  <%@ page import="data.CandidateAnswers" %>
  <%@ page import="data.Result" %>
- <%@ page import="data.CounterIndex" %>   
+ <%@ page import="data.Candidate" %>   
+   
 
 
 
@@ -21,7 +22,7 @@
 <title>Customer Answers</title>
 </head>
 <body>
- <header>
+<header>
    <nav class="navbar navbar-expand-lg navbar-dark bg-light navbar-fixed-top">
        <div class="container-fluid">
          <a class="navbar-brand" href="../index.html">Election Machine</a>
@@ -50,29 +51,65 @@
 	<tbody>
 		<tr>
 			<td>candidate id</td>
-			<td>customer id</td>
-			<td>result</td>	
+			<td>Candidate First name</td>
+			<td>Candidate Surname</td>	
 			
 		</tr>
 	<%
-		ArrayList<Result> List=(ArrayList<Result>)request.getAttribute("resultlist");
+	
+		ArrayList<Candidate> List = (ArrayList<Candidate>)request.getAttribute("resultlist");
+		//ArrayList<Result> List = (ArrayList<Result>)request.getAttribute("resultlist");
+
+		//ArrayList<Result> List=(ArrayList<Result>)request.getAttribute("resultlist");			
+		//Result r = List.get(i);
+		//out.println("<tr>");
+		//out.println("<td>"+r.getCandidateid()+"</td>");
+		//out.println("<td>"+r.getCustomerid()+"</td>");
+		//out.println("<td>"+r.getResult()+"</td>");
+		//out.println("</tr>");
 		
 		for(int i = 0; i< List.size(); i++){
-			
-		Result r = List.get(i);
-		out.println("<tr>");
-		out.println("<td>"+r.getCandidateid()+"</td>");
-		out.println("<td>"+r.getCustomerid()+"</td>");
-		out.println("<td>"+r.getResult()+"</td>");
-		out.println("</tr>");
-		}
 
+		Candidate c = List.get(i);
+		//Result c = List.get(i);
+
+		out.println("<tr>");
+		out.println("<td>"+ c.getId()+"</td>");
+		out.println("<td>"+ c.getFirstname()+"</td>");
+		out.println("<td>"+ c.getSurname()+"</td>");
+		out.println("</tr>");
+
+		}
 	%>
 	</tbody>
 </table>
 <br>
 
+<div class="row">
+<div class="col-sm-4">
+    <div id="project1" class="project_cards">
+       <div class="card_photo">
+           <div class="demobox" id="demobox1">
+               <a href="https://codepen.io/hosseinhgz/pen/qBaeoOa"><img src="./images/Candidate${candidate.id}.jpg" alt="Candidate - tribute page" style="width:400px;height:260px;"></a>
+           </div>
+       </div>
+       <div class="card-header">
 
+           <h4>${candidate.firstname} - ${candidate.surname}</h4>
+       </div>
+       <div class="card-describe">
+       	<p class="card-text"><b>Candidate id:</b> ${candidate.id}</p>	    
+	   	<p class="card-text"><b>Candidate Party:</b> ${candidate.party}</p>	    
+	    <p class="card-text"><b>Candidate Location:</b> ${candidate.location}</p>    
+	    <p class="card-text"><b>Candidate profession:</b> ${candidate.professional}</p>
+	    <a href='../readtomorecandidate?id=${candidate.id}' class="btn btn-primary">More Information</a>
+	    
+       </div>
+   </div>
+</div>	
+</div>
+
+</div>
 
 </main>
 </body>

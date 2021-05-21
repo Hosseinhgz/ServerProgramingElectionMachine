@@ -16,6 +16,7 @@ import data.Candidate;
 import data.CandidateAnswers;
 import data.CounterIndex;
 import data.Question;
+import data.UserId;
 
 /**
  * Servlet implementation class ShowFish
@@ -74,7 +75,7 @@ public class Suggestions extends HttpServlet {
 				
 				}
 				percentResult = res*100/qalist.size();
-				data.Result r = new data.Result(j,1,percentResult);
+				data.Result r = new data.Result(j,UserId.currentUserId(),percentResult);
 				cdao.insertResult(r);
 				resultlist.add(r);
 			}

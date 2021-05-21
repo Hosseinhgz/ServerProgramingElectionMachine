@@ -14,6 +14,7 @@ import dao.CustomerDao;
 import dao.Dao;
 import data.Customer;
 import data.Question;
+import data.UserId;
 
 /**
  * Servlet implementation class ShowFish
@@ -49,12 +50,18 @@ public class AddCustomer extends HttpServlet {
 		String phone=request.getParameter("phone");
 		
 		Customer cu=new Customer(firstname, lastname, username, email, phone);
-		Customer cul = new Customer();
 		if (cudao.getConnection()) {
+
 			cudao.addCustomer(cu);
-			cul = cudao.readLastCustomer();
+		}else {
+			response.getWriter().print("no connection for add customer");
 		}
+		//read the customer again in new object to bring the id from table auto increment
+		Customer cul = cudao.readLastCustomer();
+		// add customer Id in an static variable for future usage
+		UserId.setUserId(cul.getId());
 		
+		response.getWriter().print("Hello"+cul.getFirstname());
 		request.setAttribute("customer", cul);
 		RequestDispatcher rd=request.getRequestDispatcher("/showquestion");
 		rd.forward(request, response);

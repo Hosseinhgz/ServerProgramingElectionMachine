@@ -47,7 +47,7 @@ public class CustomerDao {
 	}
 	
 	// Insert new customer to CUSTOMER table 
-	public ArrayList<Customer> addCustomer(Customer cu) {
+	public Customer addCustomer(Customer cu) {
 		try {
 			String sql="INSERT INTO CUSTOMER (FIRSTNAME, LASTNAME, USERNAME, EMAIL, PHONE) VALUES ('?','?','?','?','?')";
 			getConnection();
@@ -102,7 +102,28 @@ public class CustomerDao {
 			return null;
 		}
 	}
-
+	// readLastCustomer method
+	public Customer readLastCustomer() {
+		Customer cu=null;
+		try {
+			String sql="SELECT * FROM CUSTOMER ORDER BY CUSTOMERID DESC LIMIT 1";
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			ResultSet RS=pstmt.executeQuery();
+			while (RS.next()){
+				cu =new Customer();
+				cu.setId(RS.getInt("CUSTOMERID"));
+				cu.setFirstname(RS.getString("FIRSTNAME"));
+				cu.setLastname(RS.getString("LASTNAME"));
+				cu.setUsername(RS.getString("USERNAME"));
+				cu.setEmail(RS.getString("EMAIL"));
+				cu.setPhone(RS.getString("PHONE"));
+			}
+			return cu;
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
 	
 	
 }

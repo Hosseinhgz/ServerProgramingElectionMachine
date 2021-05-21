@@ -2,7 +2,7 @@ package data;
 
 public class UserId {
 
-	private static int userid;
+	private static int userid=0;
 	
 	public UserId() {
 		// TODO Auto-generated constructor stub

@@ -75,7 +75,7 @@ public class Suggestions extends HttpServlet {
 				
 				}
 				percentResult = res*100/qalist.size();
-				data.Result r = new data.Result(j,UserId.currentUserId(),percentResult);
+				data.Result r = new data.Result(j,UserId.getUserId(),percentResult);
 				cdao.insertResult(r);
 				resultlist.add(r);
 			}

@@ -22,6 +22,11 @@ public class UserId {
 			//Do nothing - the value of id won't be changed
 		}
 	}
-
+	public static synchronized void nextUserId() {
+		UserId.userid++;
+	}
+	public static synchronized void previousUserId() {
+		UserId.userid--;
+	}
 
 }

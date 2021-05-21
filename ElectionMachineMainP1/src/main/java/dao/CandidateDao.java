@@ -13,6 +13,7 @@ import data.Candidate;
 import data.CandidateAnswers;
 import data.Question;
 import data.Result;
+import data.UserId;
 
 
 public class CandidateDao {
@@ -262,7 +263,7 @@ public class CandidateDao {
 	public ArrayList<Result> readSuggestions() {
 		ArrayList<Result> list=new ArrayList<>();
 		try {
-			String sql = "SELECT * FROM RESULT ORDER BY RESULT DESC LIMIT 3";
+			String sql = "SELECT * FROM RESULT WHERE CUSTOMERID="+UserId.getUserId()+" ORDER BY RESULT DESC LIMIT 3 ;";
 			getConnection();
 			Statement stmt=conn.createStatement();
 			ResultSet RS=stmt.executeQuery(sql);

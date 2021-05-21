@@ -43,6 +43,8 @@ public class AddCustomer extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<Customer> list=null;
+		data.UserId.nextUserId();
 		String firstname=request.getParameter("firstname");
 		String lastname=request.getParameter("lastname");
 		String username=request.getParameter("username");
@@ -51,8 +53,7 @@ public class AddCustomer extends HttpServlet {
 		
 		Customer cu=new Customer(firstname, lastname, username, email, phone);
 		if (cudao.getConnection()) {
-
-			cudao.addCustomer(cu);
+			list=cudao.addCustomer(cu);
 		}else {
 			response.getWriter().print("no connection for add customer");
 		}
@@ -61,7 +62,7 @@ public class AddCustomer extends HttpServlet {
 		// add customer Id in an static variable for future usage
 		UserId.setUserId(cul.getId());
 		
-		response.getWriter().print("Hello"+cul.getFirstname());
+		//response.getWriter().print("Hello "+cul.getFirstname());
 		request.setAttribute("customer", cul);
 		RequestDispatcher rd=request.getRequestDispatcher("/showquestion");
 		rd.forward(request, response);

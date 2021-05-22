@@ -10,6 +10,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+ <%
+ 
+ 	// specify that this page should not cache with browser
+ 	response.setHeader("Cache-Control", "no-cache, no-store , must-revalidate"); //HTTP 1.1
+ 	response.setHeader("Pragma","no-cache"); //HTTP 1.0
+ 	response.setHeader("Expires","0"); //Proxies
+
+ 	// check for login 
+ 	if(session.getAttribute("username")==null){
+ 		response.sendRedirect("../jsp/adminlogin.jsp");
+ 	}
+ %>
  <header>
    <nav class="navbar navbar-expand-lg navbar-dark bg-light navbar-fixed-top">
        <div class="container-fluid">
@@ -20,7 +32,7 @@
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
              <li class="nav-item">
-               <a class="nav-link" aria-current="page" href='/checkuser?logout=yes'>Log out</a>
+               <a class="nav-link" aria-current="page" href='/logout'><% if (session.getAttribute("username")==null){out.println("Login");}else{out.println("logout");} %></a>
              </li>
              <li class="nav-item">
                <a class="nav-link" href="#project-title">Statistics</a>

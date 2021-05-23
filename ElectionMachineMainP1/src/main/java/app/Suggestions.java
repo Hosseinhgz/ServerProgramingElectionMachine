@@ -68,7 +68,7 @@ public class Suggestions extends HttpServlet {
 				
 					int x = caAnslist.get(i).getCandidateans();
 					int y = qalist.get(i).getAnswer();
-					System.out.println("i loop");
+					//System.out.println("i loop");
 					if (y!=0) {
 						res = res + (1-(java.lang.Math.abs(x-y)*0.25));
 					}
@@ -78,7 +78,7 @@ public class Suggestions extends HttpServlet {
 				data.Result r = new data.Result(j,UserId.getUserId(),percentResult);
 				cdao.insertResult(r);
 				resultlist.add(r);
-				System.out.println("j loop");
+				//System.out.println("j loop");
 
 			}
 			else {

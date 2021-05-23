@@ -69,7 +69,6 @@
 		//out.println("</tr>");
 		
 		for(int i = 0; i< List.size(); i++){
-
 		Candidate c = List.get(i);
 		//Result c = List.get(i);
 

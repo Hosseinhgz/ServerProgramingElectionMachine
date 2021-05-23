@@ -30,8 +30,8 @@
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
              <li class="nav-item">
-               <a class="nav-link" aria-current="page" href='/logout'><% if (session.getAttribute("username")==null){out.println("Login");}else{out.println("logout");} %></a>
-             </li>
+               <a class="nav-link" aria-current="page" href=<% if (session.getAttribute("username")==null){out.println("/jsp/adminlogin.jsp");}else{out.println("/logout");} %>>
+               <% if (session.getAttribute("username")==null){out.println("Login");}else{out.println("logout");} %></a>             </li>
              <li class="nav-item">
                <a class="nav-link" href="#project-title">Statistics</a>
              </li>

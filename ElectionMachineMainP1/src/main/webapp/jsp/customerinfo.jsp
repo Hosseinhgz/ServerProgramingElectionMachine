@@ -23,8 +23,8 @@
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
              <li class="nav-item">
-               <a class="nav-link" aria-current="page" href='/logout'><% if (session.getAttribute("username")==null){out.println("Login");}else{out.println("logout");} %></a>
-             </li>
+               <a class="nav-link" aria-current="page" href=<% if (session.getAttribute("username")==null){out.println("/jsp/adminlogin.jsp");}else{out.println("/logout");} %>>
+               <% if (session.getAttribute("username")==null){out.println("Login");}else{out.println("logout");} %></a>             </li>
              <li class="nav-item">
                <a class="nav-link" href="#project-title">Statistics</a>
              </li>
@@ -34,7 +34,7 @@
      </nav>
 </header>
 <main>
- <div class="container">
+ <div class="container3">
 <img src="../images/userinfo.png" alt="user information icon" style="width:100px;height:100px;">
   
 <h1>Please fill your information</h1>
@@ -43,25 +43,23 @@
 <form action='../addcustomer' method='get'>
 <div class="customerinput">
 	<div class="row">
-		<div class="col-md-4">
-		First Name: <input type='text' class="questionbox" name='firstname' placeholder="First name" required>
-		</div>
-		<div class="col-md-4">	
-		Last Name: <input type='text' class="questionbox" name='lastname' placeholder="Last name" required>
-		</div>
-		<div class="col-md-4">	
-		Username: <input type='text' class="questionbox" name='username' placeholder="username" required>	
-		</div>
+		<input type='text' class="questionbox" name='firstname' placeholder="First name" required>
+		<input type='text' class="questionbox" name='lastname' placeholder="Last name" required>
 	</div>
+	<div class="row">	
+		<input type='text' class="questionbox" name='username' placeholder="username" required>	
+	</div>
+
 <div class="row">
-	<div class="col-md-6">
-	Email: <input type='email' class="questionbox" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" name='email' placeholder="email" required>
-	</div>
-	<div class="col-md-6">	
-	Phone number: <input type="tel" class="questionbox" name='phone' placeholder="Phone number">
-	</div>
+
+	<input type='email' class="questionbox" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" name='email' placeholder="email" required>
 </div>
+<div class="row">	
+	<input type="tel" class="questionbox" name='phone' placeholder="Phone number">
+</div>
+	<input type='checkbox'  required> I Have read and agree with policy.
 	<input class="button" type='submit' name='ok' value='Submit'>
+
 </div>
 </form>
 </div>

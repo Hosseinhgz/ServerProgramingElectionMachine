@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
@@ -11,8 +11,8 @@
     <link href="../CSS/style.css" rel="stylesheet">
     
     <title>Hello App Engine</title>
-</head>
-<body>
+  </head>
+  <body>
  <header>
    <nav class="navbar navbar-expand-lg navbar-dark bg-light navbar-fixed-top">
        <div class="container-fluid">
@@ -33,38 +33,17 @@
        </div>
      </nav>
 </header>
-<main>
- <div class="container">
-<img src="../images/userinfo.png" alt="user information icon" style="width:100px;height:100px;">
-  
-<h1>Please fill your information</h1>
-<p>your information will be secure with us</p>
-
-<form action='../addcustomer' method='get'>
-<div class="customerinput">
-	<div class="row">
-		<div class="col-md-4">
-		First Name: <input type='text' class="questionbox" name='firstname' placeholder="First name" required>
-		</div>
-		<div class="col-md-4">	
-		Last Name: <input type='text' class="questionbox" name='lastname' placeholder="Last name" required>
-		</div>
-		<div class="col-md-4">	
-		Username: <input type='text' class="questionbox" name='username' placeholder="username" required>	
-		</div>
-	</div>
-<div class="row">
-	<div class="col-md-6">
-	Email: <input type='email' class="questionbox" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" name='email' placeholder="email" required>
-	</div>
-	<div class="col-md-6">	
-	Phone number: <input type="tel" class="questionbox" name='phone' placeholder="Phone number">
-	</div>
-</div>
-	<input class="button" type='submit' name='ok' value='Submit'>
-</div>
-</form>
-</div>
+	<main>
+	  <div class="container">
+	  	<img src="../images/elections-icon.png" alt="election icon" style="width:100px;height:100px;">
+	  
+	    <h1>Welcome to Election machine</h1>
+	    <p>Path to Choose wise</p>
+	    
+		<a href="../showallcandidates"><button class="button" type="button">Candidates</button></a>
+		<a href='../jsp/customerinfo.jsp'><button class="button" type="button">Questionnaire</button></a>
+	
+	 </div>
 </main>
 </body>
 

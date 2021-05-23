@@ -1,6 +1,7 @@
 package app;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,20 +14,24 @@ import dao.Dao;
 import data.Question;
 
 /**
- * Servlet implementation class ReadToUpdate
+ * Servlet implementation class ShowFish
  */
-@WebServlet("/readtoupdatequestion")
-public class ReadToUpdate extends HttpServlet {
+@WebServlet("/deletequestion")
+public class DeleteQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Dao dao;
+	private Dao dao=null;
+	
+	@Override
 	public void init() {
-		dao=new Dao("jdbc:mysql://localhost:3306/electionmachine", "root", "Hh4497");
+		
+		dao = new Dao("jdbc:mysql://localhost:3306/electionmachine", "root", "Hh4497");
+
 	}
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReadToUpdate() {
+    public DeleteQuestion() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,15 +40,19 @@ public class ReadToUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String id=request.getParameter("id");
-		Question q=null;
+		ArrayList<Question> list=null;
+		String id =request.getParameter("id");
+
 		if (dao.getConnection()) {
-			q=dao.readQuestion(id);
+			dao.deleteQuestion(id);
+		}else {
+			response.getWriter().print("no connection for add question");
 		}
-		request.setAttribute("question", q);
-		
-		RequestDispatcher rd=request.getRequestDispatcher("/jsp/question/readquestiontoupdate.jsp");
+		//read the question again in new object to bring the id from table auto increment
+		list = dao.readAllQuestion();
+
+		request.setAttribute("questionlist", list);
+		RequestDispatcher rd=request.getRequestDispatcher("/editallquestions");
 		rd.forward(request, response);
 	}
 }

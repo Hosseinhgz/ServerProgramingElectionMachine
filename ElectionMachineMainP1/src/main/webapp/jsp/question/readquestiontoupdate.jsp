@@ -43,36 +43,23 @@
      </nav>
 </header>
 <main>
-<h1>Edit Questions</h1>
-<div class="form-container3">
+<div class="form-container">
 <hr>
-<p>Here you can add new question:</p>
-<form action='../addquestion' method='get'>
-	<input type='text' class="questionbox" name='question' placeholder="New question text" value=''>
-	<input class="submit-button" type='submit' name='ok' value='OK'>
+
+<h1>Update the  question ${requestScope.question.id}</h1>
+<hr>
+
+<form action='../updatequestion?id=${question.id}' method='get'>
+<div>${question.id } - 
+<input type='hidden' name="id" class="questionbox" value='${question.id }'>
+<input type='text' name='question' class="questionbox" value='${question.question }'>
+<input class="submit-button" type='submit' name='ok' value='OK'></div>
 </form>
-
-<hr>
-
-<ol>
-<c:forEach var="question" items="${requestScope.questionlist}">
-<div class="row">
-<div class="question-container col-md-7">
-	<li>${question.question} </li>
-</div>
-
-<div class="question-buttons col-md-3">
-	<a href='../deletequestion?id=${question.id}'><button class="submit-button-update">Delete</button></a> 
-	<a href='../readtoupdatequestion?id=${question.id}'><button class="submit-button-delete">Update</button></a>
-</div>
-</div>
-<hr>
-</c:forEach>
-</ol>
 <div class="info-img">
-	<a href="../jsp/adminmain.jsp"><button class="button" type="button">Back to login main</button></a>
+	<a href="../editallquestions"><button class="button" type="button">Back to Questions</button></a>
 </div>
 </div>
+
 </main>
 </body>
 </html>

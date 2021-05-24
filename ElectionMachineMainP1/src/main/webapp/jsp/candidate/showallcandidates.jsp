@@ -50,7 +50,7 @@
 	   	<p class="card-text"><b>Candidate Party:</b> ${candidate.party}</p>	    
 	    <p class="card-text"><b>Candidate Location:</b> ${candidate.location}</p>    
 	    <p class="card-text"><b>Candidate profession:</b> ${candidate.professional}</p>
-	    <a href='../readtomorecandidate?id=${candidate.id}' class="btn btn-primary">More Information</a>
+	    <a href='../showonecandidate?id=${candidate.id}' class="btn btn-primary">More Information</a>
 	    
        </div>
    </div>

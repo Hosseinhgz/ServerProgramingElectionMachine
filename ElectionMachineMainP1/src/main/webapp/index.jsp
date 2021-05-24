@@ -27,7 +27,7 @@
                <% if (session.getAttribute("username")==null){out.println("Login");}else{out.println("logout");} %></a>
              </li>
              <li class="nav-item">
-               <a class="nav-link" href="#project-title">Statistics</a>
+               <a class="nav-link" href="../statistics">Statistics</a>
              </li>
            </ul>
          </div>

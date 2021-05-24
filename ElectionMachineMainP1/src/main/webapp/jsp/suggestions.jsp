@@ -105,7 +105,7 @@ out.println("<div class='col-sm-4'>");
 		out.println("<p class='card-text'><b>Candidate Party:</b>"+c.getParty()+"</p>");	    
 		out.println("<p class='card-text'><b>Candidate Location:</b>"+c.getLocation()+"</p>");    
 		out.println("<p class='card-text'><b>Candidate profession:</b>"+c.getProfessional()+"</p>");
-		out.println("<a href='#' class='btn btn-primary'>More Information</a>");
+		out.println("<a href='../showonecandidate?id="+c.getId()+"' class='btn btn-primary'>More Information</a>");
 	    
 		out.println("</div>");
 	out.println("</div>");

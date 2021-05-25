@@ -172,6 +172,29 @@ public class CandidateDao {
 			return null;
 		}
 	}
+	
+	// insertCandidate() method which add candidate information to database
+	public ArrayList<Candidate>  insertCandidate(Candidate c) {
+		try {
+			String sql = "INSERT INTO CANDIDATE (CANDIDATEID, QUESTION, CANDIDATEANS, COMMENT) VALUES (?, ?, ?,'')";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, c.getSurname());
+			pstmt.setString(2, c.getFirstname());
+			pstmt.setString(3, c.getParty());
+			pstmt.setString(4, c.getLocation());
+			pstmt.setInt(5, c.getIka());
+			pstmt.setString(6, c.getWhyCommission());
+			pstmt.setString(7, c.getWhatAthesWantEdes());
+			pstmt.setString(8, c.getProfessional());
+			pstmt.setInt(9, c.getId());
+			pstmt.executeUpdate();
+			return readAllCandidates();
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
 	// readCandidateAnswers() method which read all answers of specific candidate
 	public ArrayList<CandidateAnswers> readCandidateAnswers(int candidateId) {
 		ArrayList<CandidateAnswers> cAnswersList=new ArrayList<>();
@@ -196,6 +219,27 @@ public class CandidateDao {
 			return null;
 		}
 	}
+	
+	// insertCandidateAns() method which add answers of new candidate to database
+	public void insertCandidateAns(CandidateAnswers ca) {
+		try {
+			String sql = "INSERT INTO CANDIDATEANSWERS (CANDIDATEID, QUESTION, CANDIDATEANS, COMMENT) VALUES (?, ?, ?,'')";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, ca.getCandidateid());
+			pstmt.setInt(2, ca.getQuestion());
+			pstmt.setInt(3, ca.getCandidateans());
+
+			pstmt.executeUpdate();
+			return;
+		}
+		catch(SQLException e) {
+			return;
+		}
+	}
+	
+	
+	
 	public ArrayList<Question> readAllQuestion() {
 		ArrayList<Question> list=new ArrayList<>();
 		try {

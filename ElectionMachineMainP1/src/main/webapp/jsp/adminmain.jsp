@@ -53,7 +53,10 @@
 	    <hr>
 	   	<img src="../images/admin-icon.png" alt="admin icon" style="width:100px;height:100px;"><br>    
 		<a href="../editallcandidates"><button class="button" type="button">Edit Candidates</button></a>
+		<a href="../createcandidate"><button class="button" type="button">New Candidate</button></a>
 		<a href="../editallquestions"><button class="button" type="button">Edit Questions</button></a>
+		
+		
 
 	 </div>
 </main>

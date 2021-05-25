@@ -53,12 +53,14 @@
 			<td>candidate id</td>
 			<td>Candidate First name</td>
 			<td>Candidate Surname</td>	
+			<td>Similarity Percent</td>	
+			
 			
 		</tr>
 	<%
 	
 		ArrayList<Candidate> List = (ArrayList<Candidate>)request.getAttribute("resultlist");
-		//ArrayList<Result> List = (ArrayList<Result>)request.getAttribute("resultlist");
+		ArrayList<Result> suggestlist = (ArrayList<Result>)session.getAttribute("suggestlist");
 
 		//ArrayList<Result> List=(ArrayList<Result>)request.getAttribute("resultlist");			
 		//Result r = List.get(i);
@@ -70,12 +72,13 @@
 		
 		for(int i = 0; i< List.size(); i++){
 		Candidate c = List.get(i);
-		//Result c = List.get(i);
+		Result r = suggestlist.get(i);
 
 		out.println("<tr>");
 		out.println("<td>"+ c.getId()+"</td>");
 		out.println("<td>"+ c.getFirstname()+"</td>");
 		out.println("<td>"+ c.getSurname()+"</td>");
+		out.println("<td>"+ r.getResult()+"</td>");		
 		out.println("</tr>");
 
 		}

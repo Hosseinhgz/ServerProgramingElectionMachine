@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CandidateDao;
 import dao.Dao;
@@ -87,6 +88,8 @@ public class Suggestions extends HttpServlet {
 		}
 		
 		suggestlist = cdao.readSuggestions();
+		HttpSession session = request.getSession();
+		session.setAttribute("suggestlist", suggestlist);
 		
 		suggcanlist = cdao.readSuggCandidate(suggestlist.get(0).getCandidateid(),suggestlist.get(1).getCandidateid(), suggestlist.get(2).getCandidateid());
 //		System.out.println(suggcanlist.get(0));

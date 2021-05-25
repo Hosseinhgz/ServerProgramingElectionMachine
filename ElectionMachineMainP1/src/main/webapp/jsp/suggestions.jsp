@@ -35,7 +35,7 @@
                <a class="nav-link" aria-current="page" href=<% if (session.getAttribute("username")==null){out.println("/jsp/adminlogin.jsp");}else{out.println("/logout");} %>>
                <% if (session.getAttribute("username")==null){out.println("Login");}else{out.println("logout");} %></a>             </li>
              <li class="nav-item">
-               <a class="nav-link" href="#project-title">Statistics</a>
+               <a class="nav-link" href="../statistics">Statistics</a>
              </li>
            </ul>
          </div>
@@ -50,10 +50,10 @@
 <table border="1">
 	<tbody>
 		<tr>
-			<td>candidate id</td>
-			<td>Candidate First name</td>
-			<td>Candidate Surname</td>	
-			<td>Similarity Percent</td>	
+			<td> candidate id </td>
+			<td> Candidate Firstname </td>
+			<td> Candidate Surname </td>	
+			<td> Similarity Percent </td>	
 			
 			
 		</tr>
@@ -75,10 +75,10 @@
 		Result r = suggestlist.get(i);
 
 		out.println("<tr>");
-		out.println("<td>"+ c.getId()+"</td>");
-		out.println("<td>"+ c.getFirstname()+"</td>");
-		out.println("<td>"+ c.getSurname()+"</td>");
-		out.println("<td>"+ r.getResult()+"</td>");		
+		out.println("<td> "+ c.getId()+" </td>");
+		out.println("<td> "+ c.getFirstname()+" </td>");
+		out.println("<td> "+ c.getSurname()+" </td>");
+		out.println("<td> "+ r.getResult()+" </td>");		
 		out.println("</tr>");
 
 		}

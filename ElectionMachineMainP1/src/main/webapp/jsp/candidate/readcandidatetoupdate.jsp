@@ -43,40 +43,34 @@
      </nav>
 </header>
 <main>
-<h1>Edit Candidates</h1>
 <div class="form-container3">
-
-
-<c:forEach var="candidate" items="${requestScope.candidatelist}">
-<div class="row">
-<div class="candidate-container">
-<div class="candidate-container-img">
-	<img  src="./images/Candidate${candidate.id}.jpg" alt="Candidate - tribute page" style="width:200px;height:130px;border-radius:15px;">
-</div>
-<div class="candidate-container-info">
-	<h3>Candidate ID: ${candidate.id}</h3>
-	<p>${candidate.firstname}  ${candidate.surname}</p>
-	<p>Party: ${candidate.party}</p>
-	<p>Profession: Can${candidate.professional}</p>
-	<p>IKA: ${candidate.ika}</p>	
-	<p>${candidate.whyCommission}</p>
-	<p>${candidate.whatAthesWantEdes}</p>
-	<p>location: ${candidate.location}</p>
-</div>	
-<div class="candidate-container-buttons">
-
-	<a href='../deletecandidate?id=${candidate.id}'><button class="submit-button-update">Delete</button></a> 
-	<a href='../readcandidatetoupdate?id=${candidate.id}'><button class="submit-button-delete">Update</button></a>
-</div>
-</div>
-</div>
 <hr>
-</c:forEach>
 
+<h1>Update Candidate ${requestScope.candidate.id}</h1>
+<hr>
+
+<form action='../updatecandidate?id=${candidate.id}' method='get'>
+<div>
+<h3>Candidate ID: ${candidate.id }'</h3>
+<input type='hidden' name='id' class="candidatebox" value='${candidate.id}'><br>
+First Name:<input type='text' name='firstname' class="candidatebox" value='${candidate.firstname}'><br>
+Last Name:<input type='text' name='surname' class="candidatebox" value='${candidate.surname}'><br>
+Party:<input type='text' name='party' class="candidatebox" value='${candidate.party}'><br>
+Profession: <input type='text' name='professional' class="candidatebox" value='${candidate.professional}'><br>
+IKA: <input type='text' name='ika' class="candidatebox" value='${candidate.ika}'><br>
+Why Commission: <input type='text' name='whyCommission' class="candidatebox2" value='${candidate.whyCommission}'><br>
+More: <input type='text' name='whatAthesWantEdes' class="candidatebox2" value='${candidate.whatAthesWantEdes}'><br>
+
+
+<input class="button" type='submit' name='ok' value='Submit'>
+<a href="../editallcandidates"><button class="button" type="button">Back to Candidates</button></a>
+
+</div>
+</form>
 <div class="info-img">
-	<a href="../jsp/adminmain.jsp"><button class="button" type="button">Back to login main</button></a>
 </div>
 </div>
+
 </main>
 </body>
 </html>

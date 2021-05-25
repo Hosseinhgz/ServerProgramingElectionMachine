@@ -1,6 +1,8 @@
 package app;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +38,7 @@ public class CheckUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter("username");
 		String password = request.getParameter("password");
-		
+
 		if (dao.getConnection()) {
 			if (dao.checkadmin(uname,password)) {
 				

@@ -149,7 +149,7 @@ h1 {
 }
 .candidate-container-img{
 		display:flex;
-	
+		padding-top:20px;
 		justify-content:center;
 	
 		width:100%;	

@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import dao.CandidateDao;
 import dao.Dao;
 import data.Candidate;
-import data.Question;
 
 /**
  * Servlet implementation class ShowFish
  */
-@WebServlet("/deletecandidate")
-public class DeleteCandidate extends HttpServlet {
+@WebServlet("/updatecandidate")
+public class UpdateCandidate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CandidateDao dao=null;
 	
@@ -33,7 +32,7 @@ public class DeleteCandidate extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteCandidate() {
+    public UpdateCandidate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,15 +42,16 @@ public class DeleteCandidate extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Candidate> list=null;
-		String id =request.getParameter("id");
+		Candidate c=new Candidate(request.getParameter("id"), request.getParameter("surname"),request.getParameter("firstname"),
+				 request.getParameter("party"),request.getParameter("location"), request.getParameter("ika"), 
+				 request.getParameter("whyCommission"), request.getParameter("whatAthesWantEdes") , request.getParameter("professional"));
 
 		if (dao.getConnection()) {
-			dao.deleteCandidate(id);
-			dao.deleteCandidateAns(id);
+			dao.updateCandidate(c);
 		}else {
-			response.getWriter().print("no connection for add question");
+			response.getWriter().print("no connection for add candidate");
 		}
-		//read the question again in new object to bring the id from table auto increment
+		//read the candidate again in new object to bring the id from table auto increment
 		list = dao.readAllCandidate();
 
 		request.setAttribute("candidatelist", list);

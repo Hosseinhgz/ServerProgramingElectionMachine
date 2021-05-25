@@ -342,4 +342,18 @@ public class CandidateDao {
 			return null;
 		}
 	}
+	// delete answers of deleted candidate
+	public void deleteCandidateAns(String id) {
+		try {
+			String sql="delete from CANDIDATEANSWERS where CANDIDATEID=?";;
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			return;
+		}
+		catch(SQLException e) {
+			return;
+		}
+	}
 }

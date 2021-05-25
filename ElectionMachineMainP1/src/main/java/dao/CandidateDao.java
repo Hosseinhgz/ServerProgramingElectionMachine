@@ -176,7 +176,7 @@ public class CandidateDao {
 	// insertCandidate() method which add candidate information to database
 	public ArrayList<Candidate>  insertCandidate(Candidate c) {
 		try {
-			String sql = "INSERT INTO CANDIDATE (CANDIDATEID, QUESTION, CANDIDATEANS, COMMENT) VALUES (?, ?, ?,'')";
+			String sql = "INSERT INTO CANDIDATE (SURNAME, FIRSTNAME, PARTY, LOCATION, IKA, WHY_COMMISSION, WHAT_ATHES_WANT_EDES, PROFESSIONAL, ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			getConnection();
 			PreparedStatement pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, c.getSurname());

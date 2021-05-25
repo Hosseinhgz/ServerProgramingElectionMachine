@@ -45,18 +45,21 @@ public class CreateCandidate extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Candidate> list= new ArrayList<Candidate>();
 		ArrayList<CandidateAnswers> caAnsList=new ArrayList<CandidateAnswers>();
+		ArrayList<Question> questionlist=null;
 
 		Candidate c=new Candidate(request.getParameter("id"), request.getParameter("surname"),request.getParameter("firstname"),
 				 request.getParameter("party"),request.getParameter("location"), request.getParameter("ika"), 
 				 request.getParameter("whyCommission"), request.getParameter("whatAthesWantEdes") , request.getParameter("professional"));
 
-		ArrayList<Question> questionlist=null;
+		list = dao.insertCandidate(c);
+
+		
 		dao.getConnection();
 		questionlist = dao.readAllQuestion();
 
 		
 		for (int i=0; i< questionlist.size();i++) {
-			CandidateAnswers ca=new CandidateAnswers(request.getParameter("id"), (i+1) , request.getParameter("candidateans"));
+			CandidateAnswers ca=new CandidateAnswers(request.getParameter("id"), (i+1) , request.getParameter(String.valueOf(i+1)));
 			caAnsList.add(ca);
 			if (dao.getConnection()) {
 				dao.insertCandidateAns(ca);
@@ -66,11 +69,6 @@ public class CreateCandidate extends HttpServlet {
 
 		}
 		
-		if (dao.getConnection()) {
-			list = dao.insertCandidate(c);
-		}else {
-			response.getWriter().print("no connection for add candidate");
-		}
 
 		request.setAttribute("candidatelist", list);
 		RequestDispatcher rd=request.getRequestDispatcher("/editallcandidates");

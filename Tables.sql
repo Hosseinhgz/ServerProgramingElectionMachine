@@ -12,7 +12,10 @@ CREATE TABLE CANDIDATE (
    PROFESSIONAL VARCHAR (50),
    PRIMARY KEY (ID)
 );
-delete from candidateanswers where candidateid=99 and CANDIDATEANS=0 ;
+delete from candidate where candidateid=99
+
+select * from candidateanswers where candidateid=99;
+delete from candidateanswers where candidateid=99 and CANDIDATEANS=5 ;
 # here is table created for candidates answers
 CREATE TABLE CANDIDATEANSWERS (
 	ID INTEGER NOT NULL auto_increment,

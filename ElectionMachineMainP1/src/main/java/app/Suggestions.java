@@ -92,11 +92,7 @@ public class Suggestions extends HttpServlet {
 		session.setAttribute("suggestlist", suggestlist);
 		
 		suggcanlist = cdao.readSuggCandidate(suggestlist.get(0).getCandidateid(),suggestlist.get(1).getCandidateid(), suggestlist.get(2).getCandidateid());
-//		System.out.println(suggcanlist.get(0));
-//		System.out.println(suggcanlist.get(1));
 
-		
-		System.out.println("been here and suggcanlist size: "+ suggcanlist.size());
 		request.setAttribute("resultlist", suggcanlist);		
 		RequestDispatcher rd=request.getRequestDispatcher("/jsp/suggestions.jsp");
 		rd.forward(request, response);

@@ -46,7 +46,7 @@ public class Result extends HttpServlet {
 		// reset the index to 0 again
 		CounterIndex.resetIndex();
 		
-		// save the answer to last question to database and read all question and answers
+		// save the answer to database and read all question and answers
 		Question q = new Question(request.getParameter("id"),request.getParameter("question"),request.getParameter("answer"));
 		if (dao.getConnection()) {
 			list = dao.updateAnswer(q);

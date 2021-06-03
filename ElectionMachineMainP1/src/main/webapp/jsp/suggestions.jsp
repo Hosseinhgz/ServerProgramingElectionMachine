@@ -22,20 +22,20 @@
 <title>Customer Answers</title>
 </head>
 <body>
-<header>
+ <header>
    <nav class="navbar navbar-expand-lg navbar-dark bg-light navbar-fixed-top">
        <div class="container-fluid">
-         <a class="navbar-brand" href="../index.html">Election Machine</a>
+         <a class="navbar-brand" href="../index.jsp">Election Machine</a>
          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
          </button>
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
              <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="../jsp/adminlogin.jsp">Login</a>
-             </li>
+               <a class="nav-link" aria-current="page" href=<% if (session.getAttribute("username")==null){out.println("/jsp/adminlogin.jsp");}else{out.println("/logout");} %>>
+               <% if (session.getAttribute("username")==null){out.println("Login");}else{out.println("logout");} %></a>             </li>
              <li class="nav-item">
-               <a class="nav-link" href="#project-title">Statistics</a>
+               <a class="nav-link" href="../statistics">Statistics</a>
              </li>
            </ul>
          </div>
@@ -50,15 +50,17 @@
 <table border="1">
 	<tbody>
 		<tr>
-			<td>candidate id</td>
-			<td>Candidate First name</td>
-			<td>Candidate Surname</td>	
+			<td> candidate id </td>
+			<td> Candidate Firstname </td>
+			<td> Candidate Surname </td>	
+			<td> Similarity Percent </td>	
+			
 			
 		</tr>
 	<%
 	
 		ArrayList<Candidate> List = (ArrayList<Candidate>)request.getAttribute("resultlist");
-		//ArrayList<Result> List = (ArrayList<Result>)request.getAttribute("resultlist");
+		ArrayList<Result> suggestlist = (ArrayList<Result>)session.getAttribute("suggestlist");
 
 		//ArrayList<Result> List=(ArrayList<Result>)request.getAttribute("resultlist");			
 		//Result r = List.get(i);
@@ -69,14 +71,14 @@
 		//out.println("</tr>");
 		
 		for(int i = 0; i< List.size(); i++){
-
 		Candidate c = List.get(i);
-		//Result c = List.get(i);
+		Result r = suggestlist.get(i);
 
 		out.println("<tr>");
-		out.println("<td>"+ c.getId()+"</td>");
-		out.println("<td>"+ c.getFirstname()+"</td>");
-		out.println("<td>"+ c.getSurname()+"</td>");
+		out.println("<td> "+ c.getId()+" </td>");
+		out.println("<td> "+ c.getFirstname()+" </td>");
+		out.println("<td> "+ c.getSurname()+" </td>");
+		out.println("<td> "+ r.getResult()+" </td>");		
 		out.println("</tr>");
 
 		}
@@ -84,33 +86,37 @@
 	</tbody>
 </table>
 <br>
+</div>
+<div class='row'>
+<% 
+for(int i = 0; i< List.size(); i++){
+	Candidate c = List.get(i);
 
-<div class="row">
-<div class="col-sm-4">
-    <div id="project1" class="project_cards">
-       <div class="card_photo">
-           <div class="demobox" id="demobox1">
-               <a href="https://codepen.io/hosseinhgz/pen/qBaeoOa"><img src="./images/Candidate${candidate.id}.jpg" alt="Candidate - tribute page" style="width:400px;height:260px;"></a>
-           </div>
-       </div>
-       <div class="card-header">
+out.println("<div class='col-sm-4'>");
+	out.println("<div id='project1' class='project_cards'>");
+		out.println("<div class='card_photo'>");
+		out.println("<div class='demobox' id='demobox1'>");
+		out.println("<a href='https://codepen.io/hosseinhgz/pen/qBaeoOa'><img src='./images/Candidate"+c.getId()+".jpg' alt='Candidate - tribute page' style='width:400px;height:260px;'></a>");
+		out.println("</div>");
+				out.println("</div>");
+				out.println("<div class='card-header'>");
 
-           <h4>${candidate.firstname} - ${candidate.surname}</h4>
-       </div>
-       <div class="card-describe">
-       	<p class="card-text"><b>Candidate id:</b> ${candidate.id}</p>	    
-	   	<p class="card-text"><b>Candidate Party:</b> ${candidate.party}</p>	    
-	    <p class="card-text"><b>Candidate Location:</b> ${candidate.location}</p>    
-	    <p class="card-text"><b>Candidate profession:</b> ${candidate.professional}</p>
-	    <a href='../readtomorecandidate?id=${candidate.id}' class="btn btn-primary">More Information</a>
+				out.println("<h4>"+c.getFirstname()+""+c.getSurname()+"</h4>");
+		out.println("</div>");
+		out.println("<div class='card-describe'>");
+		out.println("<p class='card-text'><b>Candidate id:</b>"+c.getId()+"</p>");	    
+		out.println("<p class='card-text'><b>Candidate Party:</b>"+c.getParty()+"</p>");	    
+		out.println("<p class='card-text'><b>Candidate Location:</b>"+c.getLocation()+"</p>");    
+		out.println("<p class='card-text'><b>Candidate profession:</b>"+c.getProfessional()+"</p>");
+		out.println("<a href='../showonecandidate?id="+c.getId()+"' class='btn btn-primary'>More Information</a>");
 	    
-       </div>
-   </div>
-</div>	
-</div>
+		out.println("</div>");
+	out.println("</div>");
+out.println("</div>");	
 
+}
+%>
 </div>
-
 </main>
 </body>
 </html>

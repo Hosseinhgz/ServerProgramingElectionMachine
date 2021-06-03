@@ -15,7 +15,7 @@ import data.Question;
 /**
  * Servlet implementation class ReadToUpdate
  */
-@WebServlet("/readtoupdate")
+@WebServlet("/readtoupdatequestion")
 public class ReadToUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Dao dao;
@@ -37,13 +37,13 @@ public class ReadToUpdate extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String id=request.getParameter("id");
-		Question f=null;
+		Question q=null;
 		if (dao.getConnection()) {
-			f=dao.readQuestion(id);
+			q=dao.readQuestion(id);
 		}
-		request.setAttribute("fish", f);
+		request.setAttribute("question", q);
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/jsp/showfishtoedit.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/jsp/question/readquestiontoupdate.jsp");
 		rd.forward(request, response);
 	}
 }

@@ -30,7 +30,18 @@ public class CandidateAnswers {
 		this.candidateans = Integer.parseInt(candidateans);
 		this.comment = comment;
 	}
-
+	public CandidateAnswers(String candidateid, String question, String candidateans) {
+		super();
+		this.candidateid = Integer.parseInt(candidateid);
+		this.question = Integer.parseInt(question);
+		this.candidateans = Integer.parseInt(candidateans);
+	}
+	public CandidateAnswers(String candidateid, int question, String candidateans) {
+		super();
+		this.candidateid = Integer.parseInt(candidateid);
+		this.question =question;
+		this.candidateans = Integer.parseInt(candidateans);
+	}
 	public int getId() {
 		return id;
 	}

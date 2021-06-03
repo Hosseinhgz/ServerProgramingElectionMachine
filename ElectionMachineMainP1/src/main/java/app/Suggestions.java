@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CandidateDao;
 import dao.Dao;
@@ -16,6 +17,7 @@ import data.Candidate;
 import data.CandidateAnswers;
 import data.CounterIndex;
 import data.Question;
+import data.UserId;
 
 /**
  * Servlet implementation class ShowFish
@@ -67,16 +69,18 @@ public class Suggestions extends HttpServlet {
 				
 					int x = caAnslist.get(i).getCandidateans();
 					int y = qalist.get(i).getAnswer();
-					
+					//System.out.println("i loop");
 					if (y!=0) {
 						res = res + (1-(java.lang.Math.abs(x-y)*0.25));
 					}
 				
 				}
 				percentResult = res*100/qalist.size();
-				data.Result r = new data.Result(j,1,percentResult);
+				data.Result r = new data.Result(j,UserId.getUserId(),percentResult);
 				cdao.insertResult(r);
 				resultlist.add(r);
+				//System.out.println("j loop");
+
 			}
 			else {
 				System.out.println("No connection to database for read CandidateAnswers or questions");
@@ -84,13 +88,11 @@ public class Suggestions extends HttpServlet {
 		}
 		
 		suggestlist = cdao.readSuggestions();
+		HttpSession session = request.getSession();
+		session.setAttribute("suggestlist", suggestlist);
 		
 		suggcanlist = cdao.readSuggCandidate(suggestlist.get(0).getCandidateid(),suggestlist.get(1).getCandidateid(), suggestlist.get(2).getCandidateid());
-//		System.out.println(suggcanlist.get(0));
-//		System.out.println(suggcanlist.get(1));
 
-		
-		System.out.println("been here and suggcanlist size: "+ suggcanlist.size());
 		request.setAttribute("resultlist", suggcanlist);		
 		RequestDispatcher rd=request.getRequestDispatcher("/jsp/suggestions.jsp");
 		rd.forward(request, response);

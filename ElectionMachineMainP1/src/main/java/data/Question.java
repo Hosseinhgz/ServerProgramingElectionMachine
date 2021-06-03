@@ -16,6 +16,9 @@ public class Question {
 		this.question = question;
 		this.answer = answer;
 	}
+	public Question(String question) {
+		this.question = question;
+	}
 	public Question(String id, String question, String answer) {
 		// TODO Auto-generated constructor stub
 		setId(id);

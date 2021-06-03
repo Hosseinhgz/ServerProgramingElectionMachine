@@ -13,6 +13,7 @@ import data.Candidate;
 import data.CandidateAnswers;
 import data.Question;
 import data.Result;
+import data.UserId;
 
 
 public class CandidateDao {
@@ -171,6 +172,29 @@ public class CandidateDao {
 			return null;
 		}
 	}
+	
+	// insertCandidate() method which add candidate information to database
+	public ArrayList<Candidate>  insertCandidate(Candidate c) {
+		try {
+			String sql = "INSERT INTO CANDIDATE (SURNAME, FIRSTNAME, PARTY, LOCATION, IKA, WHY_COMMISSION, WHAT_ATHES_WANT_EDES, PROFESSIONAL, ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, c.getSurname());
+			pstmt.setString(2, c.getFirstname());
+			pstmt.setString(3, c.getParty());
+			pstmt.setString(4, c.getLocation());
+			pstmt.setInt(5, c.getIka());
+			pstmt.setString(6, c.getWhyCommission());
+			pstmt.setString(7, c.getWhatAthesWantEdes());
+			pstmt.setString(8, c.getProfessional());
+			pstmt.setInt(9, c.getId());
+			pstmt.executeUpdate();
+			return readAllCandidates();
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
 	// readCandidateAnswers() method which read all answers of specific candidate
 	public ArrayList<CandidateAnswers> readCandidateAnswers(int candidateId) {
 		ArrayList<CandidateAnswers> cAnswersList=new ArrayList<>();
@@ -195,6 +219,27 @@ public class CandidateDao {
 			return null;
 		}
 	}
+	
+	// insertCandidateAns() method which add answers of new candidate to database
+	public void insertCandidateAns(CandidateAnswers ca) {
+		try {
+			String sql = "INSERT INTO CANDIDATEANSWERS (CANDIDATEID, QUESTION, CANDIDATEANS, COMMENT) VALUES (?, ?, ?,'')";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, ca.getCandidateid());
+			pstmt.setInt(2, ca.getQuestion());
+			pstmt.setInt(3, ca.getCandidateans());
+
+			pstmt.executeUpdate();
+			return;
+		}
+		catch(SQLException e) {
+			return;
+		}
+	}
+	
+	
+	
 	public ArrayList<Question> readAllQuestion() {
 		ArrayList<Question> list=new ArrayList<>();
 		try {
@@ -262,7 +307,7 @@ public class CandidateDao {
 	public ArrayList<Result> readSuggestions() {
 		ArrayList<Result> list=new ArrayList<>();
 		try {
-			String sql = "SELECT * FROM RESULT ORDER BY RESULT DESC LIMIT 3";
+			String sql = "SELECT * FROM RESULT WHERE CUSTOMERID="+UserId.getUserId()+" ORDER BY RESULT DESC LIMIT 3 ;";
 			getConnection();
 			Statement stmt=conn.createStatement();
 			ResultSet RS=stmt.executeQuery(sql);
@@ -311,6 +356,48 @@ public class CandidateDao {
 		}
 		catch(SQLException e) {
 			return null;
+		}
+	}
+	
+	// readAllCandidates() method
+	public ArrayList<Candidate> readAllCandidates() {
+		ArrayList<Candidate> list=new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM CANDIDATE";
+			getConnection();
+			Statement stmt=conn.createStatement();
+			ResultSet RS=stmt.executeQuery(sql);
+			while (RS.next()){
+				Candidate c=new Candidate();
+				c.setId(RS.getInt("ID"));
+				c.setFirstname(RS.getString("FIRSTNAME"));
+				c.setSurname(RS.getString("SURNAME"));
+				c.setIka(RS.getInt("IKA"));
+				c.setParty(RS.getString("PARTY"));
+				c.setLocation(RS.getString("LOCATION"));
+				c.setWhatAthesWantEdes(RS.getString("WHAT_ATHES_WANT_EDES"));
+				c.setWhyCommission(RS.getString("WHY_COMMISSION"));
+				c.setProfessional(RS.getString("PROFESSIONAL"));
+				list.add(c);
+			}
+			return list;
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
+	// delete answers of deleted candidate
+	public void deleteCandidateAns(String id) {
+		try {
+			String sql="delete from CANDIDATEANSWERS where CANDIDATEID=?";;
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			return;
+		}
+		catch(SQLException e) {
+			return;
 		}
 	}
 }

@@ -106,6 +106,20 @@ public class Dao {
 			return null;
 		}
 	}
+	// update question text with updateQuestion(Question q) method
+	public ArrayList<Question> addQuestion(Question q) {
+		try {
+			String sql="INSERT INTO QUESTION (QUESTION) VALUES (?)";
+			getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, q.getQuestion());
+			pstmt.executeUpdate();
+			return readAllQuestion();
+		}
+		catch(SQLException e) {
+			return null;
+		}
+	}
 	// update QUESTION table with customers answers customerAnswer(CustomerAnswers a) method
 	public ArrayList<Question> updateAnswer(Question q) {
 		try {
@@ -125,7 +139,7 @@ public class Dao {
 	// deleteQuestion() method
 	public ArrayList<Question> deleteQuestion(String id) {
 		try {
-			String sql="delete from QUESTION where ID=?";
+			String sql="DELETE FROM QUESTION WHERE ID=?";
 			PreparedStatement pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();

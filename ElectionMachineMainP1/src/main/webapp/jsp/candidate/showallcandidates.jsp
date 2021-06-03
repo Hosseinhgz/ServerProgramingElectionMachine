@@ -13,17 +13,17 @@
  <header>
    <nav class="navbar navbar-expand-lg navbar-dark bg-light navbar-fixed-top">
        <div class="container-fluid">
-         <a class="navbar-brand" href="../index.html">Election Machine</a>
+         <a class="navbar-brand" href="../index.jsp">Election Machine</a>
          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
          </button>
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
              <li class="nav-item">
-               <a class="nav-link" aria-current="page" href="../jsp/adminlogin.jsp">Login</a>
-             </li>
+               <a class="nav-link" aria-current="page" href=<% if (session.getAttribute("username")==null){out.println("/jsp/adminlogin.jsp");}else{out.println("/logout");} %>>
+               <% if (session.getAttribute("username")==null){out.println("Login");}else{out.println("logout");} %></a>             </li>
              <li class="nav-item">
-               <a class="nav-link" href="#project-title">Statistics</a>
+               <a class="nav-link" href="../statistics">Statistics</a>
              </li>
            </ul>
          </div>
@@ -39,7 +39,7 @@
     <div id="project1" class="project_cards">
        <div class="card_photo">
            <div class="demobox" id="demobox1">
-               <a href="https://codepen.io/hosseinhgz/pen/qBaeoOa"><img src="./images/Candidate${candidate.id}.jpg" alt="Candidate - tribute page" style="width:400px;height:260px;"></a>
+               <img src="./images/Candidate${candidate.id}.jpg" alt="Candidate - tribute page" style="width:400px;height:260px;">
            </div>
        </div>
        <div class="card-header">
@@ -50,7 +50,7 @@
 	   	<p class="card-text"><b>Candidate Party:</b> ${candidate.party}</p>	    
 	    <p class="card-text"><b>Candidate Location:</b> ${candidate.location}</p>    
 	    <p class="card-text"><b>Candidate profession:</b> ${candidate.professional}</p>
-	    <a href='../readtomorecandidate?id=${candidate.id}' class="btn btn-primary">More Information</a>
+	    <a href='../showonecandidate?id=${candidate.id}' class="btn btn-primary">More Information</a>
 	    
        </div>
    </div>

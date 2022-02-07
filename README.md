@@ -2,10 +2,10 @@
 ##Server Programming/Palvelinohjelmointi, spring 2021
 
 Content of the Practice Work
-The topic of the practice work is to develop so-called Election Machine software for an imaginary client. This feature allows voters to compare their answers with those previously submitted by candidates for election. Overall, there are then three so-called upper-level requirements/features for the software. 
-•	In the program, functionality is applied to add, edit and remove candidates.
-•	In the program, functionality is applied such that the candidate has the opportunity to answer the questions asked and edit and delete their answers. 
-•	There is a login functionality is applied for admins to add, remove and edit candidates and questions after logging in. 
+The topic of the practice work is to develop so-called Election Machine software for an imaginary client. This application allows voters to compare their answers with those previously submitted by candidates for election. Overall, there are following so-called upper-level requirements/features are applied to this software. 
+•	In the program, functionality is applied to add, edit, and remove candidates.
+•	In the program, functionality is applied such that the candidate could answer the questions asked and edit and delete their answers. 
+•	There is a login functionality is applied for admins to add, remove, and edit candidates and questions after logging in. 
 •	In the program, functionality is applied to enter questions 
 •	After the customer uses the application and answers the questions, the application suggests the three best candidates for him with those candidate answers and information.
 •	All the data is stored in a local database
